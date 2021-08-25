@@ -1,9 +1,9 @@
-import type Marker from "./Marker";
+import Marker from "./Marker";
 import Time from "./Time";
 import type Span from "./Span";
 
 const MinLineDist: number = 110.0;
-const UnitCandidates: number[] = [5/60, 1/4, 1/2, 1, 2, 4, 6, 12, 24, 48, 96, 192];
+const UnitCandidates: number[] = [1/60, 5/60, 1/4, 1/2, 1, 2, 4, 6, 12, 24, 48, 96, 192];
 
 const OneQuarter: number = 900000;
 const OneHour:number = OneQuarter*4;
@@ -54,8 +54,7 @@ export default class TimeRuler
 
     render(context: CanvasRenderingContext2D, width: number, height: number) {
 
-        var unit = this.calculateTimeUnits(width);
-        context.fillText(`unit ${unit}`, 100, 100);
+        var unit = this.calculateTimeUnits(width);        
         
         var startDay: number = this.start - this.start % OneDay;   
         var localDay = this.calculateLocalTime(startDay);        
@@ -65,6 +64,12 @@ export default class TimeRuler
         {
             const localTime = this.calculateLocalTime(time);
             markers.push(new Time(time, localTime, this));
+        }
+        
+        for(var time = localDay + OneHour*unit*0.5; time < this.end; time += OneHour*unit)
+        {
+            const localTime = this.calculateLocalTime(time);
+            markers.push(new Marker(time, localTime, this));
         }
         
         const date = new Date(localDay);

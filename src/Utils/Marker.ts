@@ -21,11 +21,10 @@ export default class Marker {
     }
 
     drawLine(context: CanvasRenderingContext2D, x: number, height: number, bold: boolean = false) {
-        if (bold) {
-            context.strokeStyle = "#aaaaaa";
-        } else {
-            context.strokeStyle = "#dddddd";
-        }
+        
+        context.setLineDash([3, 2]);
+        context.strokeStyle = "#dddddd";           
+        
         context.beginPath();
         context.moveTo(x, 25);
         context.lineTo(x, height);
