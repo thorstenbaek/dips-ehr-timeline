@@ -32,10 +32,16 @@
     
 </script>
 
-<form on:submit|preventDefault={() => {}}>
+<form class=navigator on:submit|preventDefault={() => {}}>
     <select bind:value={$range}>
         {#each ranges as range}
             <option value={range.range}>{range.title}</option>
         {/each}
     </select>
 </form>
+
+<style>
+    .navigator {
+        padding: 0 0 0 4px;
+    }    
+</style>

@@ -11,9 +11,32 @@
     <!-- <PatientHeader patient={$patient}/>
     <DocumentReferences client={$fhirClient} />
     <Observations client={$fhirClient} /> -->
-    <Timeline/>    
-    <TimeSlider/>
-    <Navigator />
+    <div class=home>
+        <Timeline/>
+        <div class=panel>
+            <TimeSlider/>
+            <Navigator/> 
+        </div>
+    </div>
 {:else}
     Loading patient...
 {/if}
+
+<style>
+    .home {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;        
+        background: #eeeeee;
+    }
+
+    .panel {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 150px;
+    }
+</style>

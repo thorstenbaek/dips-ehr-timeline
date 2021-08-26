@@ -7,22 +7,28 @@
     export let height: number;
 
     let pos: number;
+    let visible: boolean;
 
 $: {    
     pos = timeRuler?.getX($now.getTime(), width);
+    visible = pos > -45 && pos < width + 45;
 }
 
 </script>
 
-<div class=line style={`left:${pos}px;height:${height}`}/>
-<div class=overlay style={`left:${pos}px`}>
-    {$now.toLocaleTimeString("nb-no", {
-        hour: '2-digit',
-        minute:'2-digit',
-        second:'2-digit',
-        hour12: false
-    })}</div>
+{#if visible}
 
+    <div class=line style={`left:${pos}px;height:${height-5}px`}/>
+    <div class=overlay style={`left:${pos}px`}>
+        {$now.toLocaleTimeString("nb-no", {
+            hour: '2-digit',
+            minute:'2-digit',
+            second:'2-digit',
+            hour12: false
+        })}
+    </div>
+
+{/if}
 
 <style>
     .overlay {

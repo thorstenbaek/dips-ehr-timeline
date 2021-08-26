@@ -15,19 +15,17 @@
     }
 </script>
     {#if $selection && timeRuler}
-        <div class="timeline">
-            <div bind:clientWidth={width} bind:clientHeight={height}>
-                <Canvas width={width} height={height} bind:this={canvasElement} autoClear="false">
-                    <BackgroundLayer {timeRuler}/>                    
-                </Canvas>
-                <Overlay {timeRuler} {width} {height}/>
-            </div>
+        <div class="timeline" bind:clientWidth={width} bind:clientHeight={height}>
+            <Canvas width={width} height={height} bind:this={canvasElement} autoClear="false">
+                <BackgroundLayer {timeRuler}/>                    
+            </Canvas>
+            <Overlay {timeRuler} {width} {height}/>
         </div>
     {/if}
 
 <style>
-    .timeline {
-        padding: 4px;
-        background: #eeeeee;
+    .timeline {        
+        overflow-y: auto;        
+        height: calc(100% - 150px);        
     }
 </style>
