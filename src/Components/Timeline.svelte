@@ -11,15 +11,16 @@
     let timeRuler: TimeRuler;
     
     $: {
-        timeRuler = new TimeRuler($selection);
+        timeRuler = new TimeRuler($selection, 200);
     }
 </script>
     {#if $selection && timeRuler}
         <div class="timeline" bind:clientWidth={width} bind:clientHeight={height}>
-            <Canvas width={width} height={height} bind:this={canvasElement} autoClear="false">
-                <BackgroundLayer {timeRuler}/>                    
-            </Canvas>
-            <Overlay {timeRuler} {width} {height}/>
+            <Canvas width={width} height={height} bind:this={canvasElement} autoClear="false">                
+                <BackgroundLayer {timeRuler}/>                         
+                <Overlay {timeRuler} {width} {height}/>
+            </Canvas>            
+            
         </div>
     {/if}
 
@@ -27,5 +28,11 @@
     .timeline {        
         overflow-y: auto;        
         height: calc(100% - 150px);        
+    }
+
+    .content {
+        position: absolute;
+        top: 35px;
+        left: 5px;
     }
 </style>

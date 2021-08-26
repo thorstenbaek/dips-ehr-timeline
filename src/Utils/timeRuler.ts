@@ -11,15 +11,13 @@ const OneDay:number = OneHour*24;
 
 export default class TimeRuler
 {
-    startDate: Date;
-    endDate: Date;
     start: number;
     end: number;
     span: number;
+    leftMargin: number = 100;
 
-    constructor(span: Span) {
-        this.startDate = span.start;
-        this.endDate = span.end;
+    constructor(span: Span, leftMargin: number) {
+        this.leftMargin = leftMargin;
 
         this.start = span.start.getTime();
         this.end = span.end.getTime();
@@ -44,7 +42,7 @@ export default class TimeRuler
     }
 
     getX(value: number, width: number) {
-        return width * (value - this.start)/this.span;            
+        return this.leftMargin +  (width - this.leftMargin) * (value - this.start)/this.span;            
     }
 
     calculateLocalTime(time: number) : number {

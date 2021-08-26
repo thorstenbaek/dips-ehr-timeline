@@ -12,7 +12,7 @@
     <DocumentReferences client={$fhirClient} />
     <Observations client={$fhirClient} /> -->
     <div class=home>
-        <Timeline/>
+        <Timeline/>                
         <div class=panel>
             <TimeSlider/>
             <Navigator/> 

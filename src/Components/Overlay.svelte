@@ -11,7 +11,7 @@
 
 $: {    
     pos = timeRuler?.getX($now.getTime(), width);
-    visible = pos > -45 && pos < width + 45;
+    visible = pos > timeRuler.leftMargin-45 && pos < width + 45;
 }
 
 </script>

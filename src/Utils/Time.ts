@@ -16,8 +16,8 @@ export default class Time extends Marker {
     }
 
     override render(context: CanvasRenderingContext2D, width: number, height: number) {
-        var x = this.ruler.getX(this.time, width);       
-        if (x > 100) {
+        var x = this.ruler.getX(this.time, width);               
+        if (x > this.ruler.leftMargin) {
             var time = new Date(this.time);
             
             let timeDisplayText = time.toLocaleTimeString("nb-no", {

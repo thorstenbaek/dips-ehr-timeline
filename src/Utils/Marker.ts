@@ -33,12 +33,13 @@ export default class Marker {
 
     render(context: CanvasRenderingContext2D, width: number, height: number) {           
         const marker = "|";
-
         var x = this.ruler.getX(this.time, width);       
-        if (x > this.LeftMargin) {
-            context.font = "12px Arial";
-            context.fillText(marker, x - context.measureText(marker).width/2, 15);
-            this.drawLine(context, x, height);
+        if (x > this.ruler.leftMargin) {
+            if (x > this.LeftMargin) {
+                context.font = "12px Arial";
+                context.fillText(marker, x - context.measureText(marker).width/2, 15);
+                this.drawLine(context, x, height);
+            }
         }
     }
 }
