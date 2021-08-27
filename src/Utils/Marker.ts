@@ -6,12 +6,10 @@ export default class Marker {
     readonly OneDay: number = this.OneHour*24;
 
     time: number;
-    localTime: number;
     ruler: TimeRuler;
     
-    constructor(time: number, localTime: number, ruler: TimeRuler) {
-        this.time = time;
-        this.localTime = localTime;
+    constructor(time: number, ruler: TimeRuler) {
+        this.time = time;        
         this.ruler = ruler;
     }
 
