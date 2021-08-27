@@ -15,8 +15,7 @@
             } else {
                 let day = new Date(time.getFullYear(), time.getMonth(), time.getDate());
                 week.push(day)
-            }
-            
+            }            
         }
 
         return week;
@@ -29,6 +28,7 @@
     ranges.push({title: "Week", range: [currentWeek[0].getTime(), currentWeek[6].getTime()]});
     ranges.push({title: "Summer", range: [new Date("2021-03-27T20:00:00.000").getTime(), new Date("2021-03-28T08:00:00.000").getTime()]});
     ranges.push({title: "Winter", range: [new Date("2021-10-30T20:00:00.000").getTime(), new Date("2021-10-31T08:00:00.000").getTime()]});
+    ranges.push({title: "Last two years", range: [new Date("2018-01-01T00:00:00.000").getTime(), today.getTime() + 31*24*3600000]});
     
 </script>
 

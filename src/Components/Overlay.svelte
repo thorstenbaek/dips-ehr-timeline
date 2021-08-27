@@ -9,15 +9,13 @@
     let pos: number;
     let visible: boolean;
 
-$: {    
-    pos = timeRuler?.getX($now.getTime(), width);
-    visible = pos > timeRuler.leftMargin-45 && pos < width + 45;
-}
-
+    $: {    
+        pos = timeRuler?.getX($now.getTime(), width);
+        visible = pos > timeRuler.leftMargin-45 && pos < width + 45;
+    }
 </script>
 
 {#if visible}
-
     <div class=line style={`left:${pos}px;height:${height-5}px`}/>
     <div class=overlay style={`left:${pos}px`}>
         {$now.toLocaleTimeString("nb-no", {
@@ -27,7 +25,6 @@ $: {
             hour12: false
         })}
     </div>
-
 {/if}
 
 <style>
@@ -37,7 +34,7 @@ $: {
         top: 3px;
         padding: 3px 0 0 0;
         height: 16px;
-        width: 90px;
+        width: 60px;
         background: #ef8113;        
         color: white;
         font: bold 12px Arial;

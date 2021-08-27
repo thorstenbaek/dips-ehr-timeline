@@ -71,10 +71,10 @@ export default class TimeRuler
         }
         
         const date = new Date(localDay);
-        const dateText =  date.toLocaleDateString("nb-no");
+        const dateText =  date.toDateString();
         
         context.font = "bold 12px Arial";                
-        context.fillText(dateText, 50 - context.measureText(dateText).width/2, 15);
+        context.fillText(dateText, 4, 17);
         markers.map(m => {
             if (m) {
                 m.render(context, width, height);

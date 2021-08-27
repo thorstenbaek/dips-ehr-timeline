@@ -1,6 +1,7 @@
 <script lang="ts">
     import {Canvas} from 'svelte-canvas';    
     import BackgroundLayer from './BackgroundLayer.svelte';
+    import Content from "./Content.svelte";
     import Overlay from "./Overlay.svelte";
     import TimeRuler from '../Utils/timeRuler';    
     import {selection} from "../stores/timelineStore";    
@@ -17,7 +18,8 @@
     {#if $selection && timeRuler}
         <div class="timeline" bind:clientWidth={width} bind:clientHeight={height}>
             <Canvas width={width} height={height} bind:this={canvasElement} autoClear="false">                
-                <BackgroundLayer {timeRuler}/>                         
+                <BackgroundLayer {timeRuler}/>
+                <Content {timeRuler} {width}/>         
                 <Overlay {timeRuler} {width} {height}/>
             </Canvas>            
             
@@ -26,13 +28,8 @@
 
 <style>
     .timeline {        
-        overflow-y: auto;        
-        height: calc(100% - 150px);        
-    }
-
-    .content {
-        position: absolute;
-        top: 35px;
-        left: 5px;
-    }
+        overflow-y: auto;   
+        overflow-x: hidden;     
+        height: calc(100% - 100px);        
+    }    
 </style>
