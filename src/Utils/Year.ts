@@ -11,11 +11,12 @@ export default class Year extends Time {
             if (time.getMonth() == 0) {
                 timeDisplayText = `${time.getFullYear()}`;
                 context.font = "bold 12px Arial";                                                
+                this.drawLine(context, x, height, true);
             }
             else {
                 timeDisplayText = "|";
+                this.drawLine(context, x, height, false);
             }
-            this.drawLine(context, x, height, true);
         
             context.fillText(timeDisplayText, x - context.measureText(timeDisplayText).width/2, 17);            
         }

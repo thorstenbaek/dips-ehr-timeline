@@ -5,7 +5,7 @@ import type Span from "./Span";
 
 const MinLineDist: number = 110.0;
 const HourUnitCandidates: number[] = [1/60, 5/60, 1/4, 1/2, 1, 2, 4, 6, 12, 24, 48, 96, 192];
-const YearUnitCandidates: number[] = [1/12, 1/6, 1/2, 1, 2, 4, 8, 16];
+const YearUnitCandidates: number[] = [1/12, 1/6, 1/4, 1/2, 1, 2, 4, 8, 16];
 
 const OneQuarter: number = 900000;
 const OneHour: number = OneQuarter*4;
@@ -93,28 +93,7 @@ export default class TimeRuler
                 console.log(markerDate);
                 var marker = new Year(markerDate.getTime(), this);
                 markers.push(marker);
-            }
-
-            /*for(var year = start.getFullYear(); year < end.getFullYear(); year++)
-            {
-                var markerDate = new Date(year, 1, 1);
-                var marker = new Year(markerDate.getTime(), this);
-                markers.push(marker);
-            }
-
-            for(var month = start.getFullYear()*12; month < end.getFullYear()*12; month++)
-            {
-                var y = Math.trunc(month/12);
-                var m = month%12 + 1;                
-                console.log(y, m);
-
-                if (m > 1) 
-                {
-                    var markerDate = new Date(y, m);
-                    var marker = new Marker(markerDate.getTime(), this);
-                    markers.push(marker);
-                }
-            }*/
+            }            
         }
         
         const date = new Date(localDay);
