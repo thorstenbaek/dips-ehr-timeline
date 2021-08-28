@@ -64,8 +64,7 @@ export default class TimeRuler
 
     render(context: CanvasRenderingContext2D, width: number, height: number) {
         var unit = this.calculateTimeUnits(width); 
-        console.log(unit);
-                
+                        
         var startDay: number = this.start - this.start % OneDay;   
         var localDay = this.calculateLocalTime(startDay);        
 
@@ -89,8 +88,7 @@ export default class TimeRuler
 
             for(var time = start; time < end; time += OneYear*unit.v){
 
-                var markerDate = new Date(time);
-                console.log(markerDate);
+                var markerDate = new Date(time);                
                 var marker = new Year(markerDate.getTime(), this);
                 markers.push(marker);
             }            
