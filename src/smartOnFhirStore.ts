@@ -1,9 +1,10 @@
-import { writable, derived } from "svelte/store";
-import { oauth2 as SMART } from 'fhirclient';
+import {writable, derived, Readable} from "svelte/store";
+import {oauth2 as SMART} from 'fhirclient';
+import type Client from "fhirclient/lib/Client";
 
 export const context = writable(null);
 
-export const fhirClient = derived(
+export const fhirClient: Readable<Client> = derived(
     context,
     ($context, set) => {
         if ($context != null && $context.client != null)
@@ -30,11 +31,13 @@ SMART.ready()
             client: client,
             error: null
         };        
-        context.set(newContext)})
+        context.set(newContext)
+    })
     .catch(error => {
         console.error(error);
         var newContext = {
             client: null,
             error: error
         };        
-        context.set(newContext)});
+        context.set(newContext)
+    });

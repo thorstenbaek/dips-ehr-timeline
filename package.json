@@ -25,6 +25,7 @@
     "validate": "svelte-check"
   },
   "dependencies": {
+    "@types/fhir": "0.0.34",
     "@types/fhir-js-client": "^1.0.2",
     "calendarize": "^1.1.1",
     "fhirclient": "^2.4.0",
