@@ -19,7 +19,7 @@
         <div class="timeline" bind:clientWidth={width} bind:clientHeight={height}>
             <Canvas width={width} height={height} bind:this={canvasElement} autoClear="false">                
                 <BackgroundLayer {timeRuler}/>
-                <Content {timeRuler} {width}/>         
+                <Content {timeRuler} />         
                 <Overlay {timeRuler} {width} {height}/>
             </Canvas>            
             

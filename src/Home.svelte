@@ -36,6 +36,6 @@
         left: 0;
         right: 0;
         bottom: 0;
-        height: 100px;
+        height: 150px;
     }
 </style>
