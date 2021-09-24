@@ -9,35 +9,25 @@ const AQL_RESP = `SELECT
 a_a/data[at0001]/events[at0002]/time,
 a_a/data[at0001]/events[at0002]/data[at0003]/items[at0004]/value/magnitude,
 a_a/data[at0001]/events[at0002]/data[at0003]/items[at0004]/value/units
-FROM
-COMPOSITION a
-CONTAINS OBSERVATION a_a[openEHR-EHR-OBSERVATION.respiration.v1]
-ORDER BY
-a_a/data[at0001]/events[at0002]/time DESC`;
+
+FROM COMPOSITION a CONTAINS OBSERVATION a_a[openEHR-EHR-OBSERVATION.respiration.v1]
+ORDER BY a_a/data[at0001]/events[at0002]/time DESC`;
 
 const AQL_TEMP = `SELECT
 a_a/data[at0002]/events[at0003]/time,
 a_a/data[at0002]/events[at0003]/data[at0001]/items[at0004]/value/magnitude,
 a_a/data[at0002]/events[at0003]/data[at0001]/items[at0004]/value/units
 
-
-
-FROM
-COMPOSITION a
-CONTAINS OBSERVATION a_a[openEHR-EHR-OBSERVATION.body_temperature.v2]
-ORDER BY
-a_a/data[at0002]/events[at0003]/time DESC`;
+FROM COMPOSITION a CONTAINS OBSERVATION a_a[openEHR-EHR-OBSERVATION.body_temperature.v2]
+ORDER BY a_a/data[at0002]/events[at0003]/time DESC`;
 
 const AQL_PULSE = `SELECT
 a_a/data[at0002]/events[at0003]/time,
 a_a/data[at0002]/events[at0003]/data[at0001]/items[at0004]/value/magnitude,
 a_a/data[at0002]/events[at0003]/data[at0001]/items[at0004]/value/units
 
-FROM
-COMPOSITION a
-CONTAINS OBSERVATION a_a[openEHR-EHR-OBSERVATION.pulse.v1]
-ORDER BY
-a_a/data[at0002]/events[at0003]/time DESC`;
+FROM COMPOSITION a CONTAINS OBSERVATION a_a[openEHR-EHR-OBSERVATION.pulse.v1]
+ORDER BY a_a/data[at0002]/events[at0003]/time DESC`;
 
 
 
