@@ -30,6 +30,7 @@
     "calendarize": "^1.1.1",
     "fhirclient": "^2.4.0",
     "svelte-canvas": "^0.6.1",
+    "svelte-frappe-charts": "^1.9.0",
     "svelte-routing": "^1.6.0"
   }
 }
