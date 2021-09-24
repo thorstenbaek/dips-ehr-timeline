@@ -2,11 +2,23 @@
     import {fhirClient, patient} from "../smartOnFhirStore";    
     import Accordion from "./Accordion.svelte";
     import type TimeRuler from "../Utils/timeRuler";
-    import type Observation from "../Utils/Observation";
+    import Observation from "../Utils/Observation";
     import ContentLine from "./ContentLine.svelte";
 
     export let timeRuler: TimeRuler;
 
+    const bloodPressureAql = `SELECT
+                                    a_a/data[at0001]/events[at0006]/time,
+                                    a_a/data[at0001]/events[at0006]/data[at0003]/items[at0004]/value/magnitude,
+                                    a_a/data[at0001]/events[at0006]/data[at0003]/items[at0005]/value/magnitude,
+                                    a_a/data[at0001]/events[at0006]/data[at0003]/items[at0005]/value/units
+
+                                FROM
+                                    COMPOSITION a
+                                        CONTAINS OBSERVATION a_a[openEHR-EHR-OBSERVATION.blood_pressure.v1]
+                                ORDER BY
+                                    a_a/data[at0001]/events[at0006]/time DESC`;
+    
     const bodyWeightAql: string =   `select
                             a_a/data[at0002]/events[at0003]/time/value as time,
                             e/data[at0001]/items[at0004]/value/magnitude as value,
@@ -17,22 +29,16 @@
                                     contains event e
                             order by a_a/data[at0002]/events[at0003]/time desc`
 
-    const bodyTemperatureAql: string = `select
-                            a/uid/value as compositionid,
-                            a/composer/name as author,
-                            tag(a,'documentId') as documentid,
-                            a_a/archetype_details/archetype_id/value as archetypeid,
-                            a_a/data[at0002]/events[at0003]/time as time,
-                            e/data[at0001]/items[at0004]/value/units as unit,
-                            e/data[at0001]/items[at0004]/value/magnitude as value,
-                            e/state[at0008]/items[at0009]/value/value as additionalinfo1
-                            from
-                            composition a
-                            contains observation a_a[openEHR-EHR-OBSERVATION.body_temperature.v*]
-                            contains event e
-                            where
-                            e/archetype_node_id = 'at0003'
-                            order by a_a/data[at0002]/events[at0003]/time desc`;
+    const bodyTemperatureAql: string = `SELECT
+                                            a_a/data[at0002]/events[at0003]/time,
+                                            a_a/data[at0002]/events[at0003]/data[at0001]/items[at0004]/value/magnitude,
+                                            a_a/data[at0002]/events[at0003]/data[at0001]/items[at0004]/value/units
+
+                                        FROM
+                                            COMPOSITION a
+                                                CONTAINS OBSERVATION a_a[openEHR-EHR-OBSERVATION.body_temperature.v2]
+                                        ORDER BY
+                                            a_a/data[at0002]/events[at0003]/time DESC`;
 /**
     --dips-red: #cd3925;
     --dips-blue: #06082d;
@@ -62,6 +68,8 @@
     }
 
     async function loadObservations(): Promise<Observation[]> {
+        var observations: Observation[] = [];
+
         if ($fhirClient && $patient) {
             const url = new URL($fhirClient.state.serverUrl);
             const ehrStoreApi = url.protocol + url.hostname + ":4443/api/v1/query";
@@ -83,7 +91,6 @@
                                  {
                                      values: [
                                         cleanedPatientId      
-                                     //"2008687"
                                      ],
                                      tag: "PatientId"
                                  }
@@ -92,26 +99,27 @@
                           })
                 }
             );            
-            const json = await res.json()
-            console.log(json);
+
+            const data = await res.json()
+            console.log(data);
+
+            if (data.totalResults > 0) {              
+                data.rows.map(row => {
+                    console.log(row);
+
+                    observations.push(
+                        new Observation(
+                            "0",
+                            "29463-7",
+                            "item.code.text",
+                            new Date(row[0].value),
+                            row[1],
+                            row[2])
+                    );
+                });
+            }
         }
-
-        var observations: Observation[] = [];
         
-        /*if (data && Array.isArray(data)) {
-            data.map(item => {
-                observations.push(
-                    new Observation(
-                        item.id,
-                        item.code.coding[0].code,
-                        item.code.text,
-                        new Date(item.effectiveDateTime),
-                        item.valueQuantity.value,
-                        item.valueQuantity.unit)
-                );
-            });       
-        }*/   
-
         return observations;
     }
 </script>
@@ -121,8 +129,7 @@
             <p>Loading Vital signs from OpenEHR...</p>
         {:then observations}
             <Accordion title="OpenEHR Vital Signs">        
-                <ContentLine title="Body Weight" color="#df6f35" {timeRuler} {observations} filter="29463-7"/>        
-                <ContentLine title="Length" color="#579c8e" {timeRuler} {observations} filter="8302-2"/>                    
+                <ContentLine title="Body Temperature" color="#df6f35" {timeRuler} {observations} filter="29463-7"/>        
             </Accordion>
         {:catch error}
             {error}
