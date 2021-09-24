@@ -4,13 +4,16 @@
   import { queryClinicalConcept } from "../openEHRStore";
   import { fhirClient, patient } from "../smartOnFhirStore";
   import Observation from "../Utils/Observation";
-
+  import { onMount } from "svelte";
   function someFunction() {
     notifier.danger("Notifications work!", 1000);
   }
   function cleanPatientId(patientId: string): string {
     return patientId.replace("cdp", "");
   }
+  onMount(async () => {
+    evaluateNotifications();
+  });
   async function evaluateNotifications() {
     if ($fhirClient && $patient) {
       const url = new URL($fhirClient.state.serverUrl);
@@ -31,9 +34,28 @@
       let theSystolic: Observation | null = null;
       if (resps && resps.length > 0) {
         theResp = resps[0];
+      } else {
+        console.log("No respirations found");
       }
       if (sysols && sysols.length > 0) {
         theSystolic = resps[0];
+      } else {
+        console.log("No systolic found");
+      }
+      console.log("Respiration: " + resps);
+      console.log("Systolic: " + theSystolic);
+      if (
+        theResp != null &&
+        theResp.value >= 22 &&
+        theSystolic != null &&
+        theSystolic.value <= 100
+      ) {
+        notifier.danger(
+          "Mistanke om infeksjon og mulig sepsis. Kontakt lege",
+          10000
+        );
+      } else {
+        notifier.info("Ingen problemer med tanke på sepsis", 10000);
       }
     }
   }
