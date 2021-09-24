@@ -34,10 +34,16 @@
       let theSystolic: Observation | null = null;
       if (resps && resps.length > 0) {
         theResp = resps[0];
+      } else {
+        console.log("No respirations found");
       }
       if (sysols && sysols.length > 0) {
         theSystolic = resps[0];
+      } else {
+        console.log("No systolic found");
       }
+      console.log("Respiration: " + resps);
+      console.log("Systolic: " + theSystolic);
       if (
         theResp != null &&
         theResp.value >= 22 &&
