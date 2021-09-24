@@ -59,8 +59,8 @@
             <p>Loading Vital signs from FHIR...</p>
         {:then observations}
             <Accordion title="FHIR Vital Signs">        
-                <ContentLine title="Body Weight" color="#df6f35" {timeRuler} {observations} filter="29463-7"/>        
-                <ContentLine title="Length" color="#579c8e" {timeRuler} {observations} filter="8302-2"/>                    
+                <ContentLine title="Body Weight" color="#df6f35" {timeRuler} {observations} filter="29463-7" icon="⚖"/>        
+                <ContentLine title="Length" color="#579c8e" {timeRuler} {observations} filter="8302-2" icon="📏"/>                    
             </Accordion>
         {:catch error}
             {error}

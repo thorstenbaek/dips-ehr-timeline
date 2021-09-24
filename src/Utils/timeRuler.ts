@@ -53,8 +53,14 @@ export default class TimeRuler
         return {detailed: false, unit: 1};
     }
 
-    getX(value: number, width: number) {
-        return this.leftMargin +  (width - this.leftMargin) * (value - this.start)/this.span;            
+    getX(value: number, width: number, hide: boolean = false) {
+        var result = this.leftMargin +  (width - this.leftMargin) * (value - this.start)/this.span;            
+
+        if (result < this.leftMargin && hide) {
+            return -999;
+        }
+
+        return result;
     }
 
     calculateLocalTime(time: number) : number {

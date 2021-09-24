@@ -23,18 +23,21 @@ export async function queryObservations(patientId: string, ehrStoreUrl: string):
         PULSE,
         TEMP
     ]
-    const allObservatoins: Observation[] = [];
+    var allObservatoins: Observation[] = [];
     concepts.forEach(async c => {
         const result = await queryClinicalConcept(patientId, ehrStoreUrl, c);
-        allObservatoins.concat(result);
+        result.forEach(r => {
+            allObservatoins.push(r);
+        })
     })
+    console.log(allObservatoins);
     return allObservatoins;
 
 }
 export async function queryClinicalConcept(patientId: string, ehrStoreUrl: string, aql: ClinicalConcept): Promise<Observation[]> {
     const observations: Observation[] = [];
+    
     if (patientId) {
-
         const res = await fetch(
             ehrStoreUrl,
             {
@@ -59,17 +62,15 @@ export async function queryClinicalConcept(patientId: string, ehrStoreUrl: strin
             }
         );
         const json: ResultSet = await res.json()
-        console.log(json);
-
-        json.rows.forEach(row => {
-            const t = row[0];
+                    
+        json.rows?.forEach(row => {
+            const t = row[0].value;
             const v = row[1];
             const u = row[2];
             const o = new Observation("theid", aql.code, aql.name, new Date(t), v, u);
-
+            observations.push(o);
         })
     }
+
     return observations;
-
-
 }

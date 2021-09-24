@@ -24,11 +24,14 @@
     const currentWeek = getWeek();
     const ranges = [];
     const today = new Date();
+    ranges.push({title: "Now", range: [today.getTime() - 2*3600000, today.getTime() + 2*3600000]});
     ranges.push({title: "Today", range: [today.getTime() - 12*3600000, today.getTime() + 12*3600000]});
     ranges.push({title: "Week", range: [currentWeek[0].getTime(), currentWeek[6].getTime()]});
+    ranges.push({title: "Last month", range: [today.getTime() - 30*24*3600000, today.getTime() + 31*24*3600000]});
+    ranges.push({title: "Last two years", range: [new Date("2018-01-01T00:00:00.000").getTime(), today.getTime() + 31*24*3600000]});
     ranges.push({title: "Summer", range: [new Date("2021-03-27T20:00:00.000").getTime(), new Date("2021-03-28T08:00:00.000").getTime()]});
     ranges.push({title: "Winter", range: [new Date("2021-10-30T20:00:00.000").getTime(), new Date("2021-10-31T08:00:00.000").getTime()]});
-    ranges.push({title: "Last two years", range: [new Date("2018-01-01T00:00:00.000").getTime(), today.getTime() + 31*24*3600000]});
+    
     
 </script>
 

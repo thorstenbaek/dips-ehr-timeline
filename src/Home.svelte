@@ -8,6 +8,7 @@
   import TimeSlider from "./Components/TimeSlider.svelte";
   import { NotificationDisplay, notifier } from "@beyonk/svelte-notifications";
   import Notifier from "./Components/Notifier.svelte";
+  import Refresher from "./Components/Refresher.svelte";
 
   function someFunction() {
     notifier.danger("Notifications work!", 1000);
@@ -15,14 +16,12 @@
 </script>
 
 {#if $fhirClient != null && $patient != null}
-  <!-- <PatientHeader patient={$patient}/>
-    <DocumentReferences client={$fhirClient} />
-    <Observations client={$fhirClient} /> -->
   <div class="home">
     <Timeline />
     <div class="panel">
       <TimeSlider />
       <Navigator />
+      <Refresher/>
       <NotificationDisplay />
       <Notifier />
     </div>

@@ -13,7 +13,7 @@ export const now = readable(new Date(), function start(set) {
 
 function createRange() {
     var today = new Date();
-    var span = new Span(new Date(today.getTime() - 12*3600000), new Date(today.getTime() + 12*3600000));
+    var span = new Span(new Date(today.getTime() - 2*3600000), new Date(today.getTime() + 2*3600000));
 
     const {subscribe, set, update} = writable([span.start.getTime(), span.end.getTime()]);
 
