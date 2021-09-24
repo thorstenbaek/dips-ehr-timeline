@@ -31,7 +31,7 @@ export async function queryObservations(patientId: string, ehrStoreUrl: string):
     return allObservatoins;
 
 }
-async function queryClinicalConcept(patientId: string, ehrStoreUrl: string, aql: ClinicalConcept): Promise<Observation[]> {
+export async function queryClinicalConcept(patientId: string, ehrStoreUrl: string, aql: ClinicalConcept): Promise<Observation[]> {
     const observations: Observation[] = [];
     if (patientId) {
 
