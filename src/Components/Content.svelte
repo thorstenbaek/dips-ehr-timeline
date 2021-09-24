@@ -54,12 +54,11 @@
     }
 </script>
 
-<div class=content>
     {#if $fhirClient && patient}
         {#await loadObservations()}
-            Loading Vital signs...
+            <p>Loading Vital signs from FHIR...</p>
         {:then observations}
-            <Accordion title="Vital Signs">        
+            <Accordion title="FHIR Vital Signs">        
                 <ContentLine title="Body Weight" color="#df6f35" {timeRuler} {observations} filter="29463-7"/>        
                 <ContentLine title="Length" color="#579c8e" {timeRuler} {observations} filter="8302-2"/>                    
             </Accordion>
@@ -67,7 +66,6 @@
             {error}
         {/await}
     {/if}
-</div>
 
 <style>
     .content {

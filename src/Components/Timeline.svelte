@@ -5,6 +5,7 @@
     import Overlay from "./Overlay.svelte";
     import TimeRuler from '../Utils/timeRuler';    
     import {selection} from "../stores/timelineStore";    
+    import Content2 from './Content2.svelte';
 
     let width: number;
     let height: number;
@@ -19,7 +20,10 @@
         <div class="timeline" bind:clientWidth={width} bind:clientHeight={height}>
             <Canvas width={width} height={height} bind:this={canvasElement} autoClear="false">                
                 <BackgroundLayer {timeRuler}/>
-                <Content {timeRuler} />         
+                <div class="content">
+                    <Content {timeRuler} /> 
+                    <Content2 {timeRuler} />        
+                </div>
                 <Overlay {timeRuler} {width} {height}/>
             </Canvas>            
             
@@ -32,4 +36,12 @@
         overflow-x: hidden;     
         height: calc(100% - 100px);        
     }    
+
+    .content {
+        position: absolute;
+        top: 35px;
+        left: 5px;
+        right: 0;        
+    }
+
 </style>
