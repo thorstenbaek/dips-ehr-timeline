@@ -1,4 +1,4 @@
-import {ClinicalConcept, SYSTOLIC} from './aqls';
+import {ClinicalConcept, SYSTOLIC, RESPIRASJON, PULSE, TEMP} from './aqls';
 
 import Observation from "./Utils/Observation";
 
@@ -17,7 +17,18 @@ interface Column {
 
 
 export async function queryObservations(patientId: string, ehrStoreUrl: string): Promise<Observation[]> {
-    return queryClinicalConcept(patientId, ehrStoreUrl, SYSTOLIC);
+    const concepts: ClinicalConcept[] = [
+        SYSTOLIC,
+        RESPIRASJON,
+        PULSE,
+        TEMP
+    ]
+    const allObservatoins: Observation[] = [];
+    concepts.forEach(async c => {
+        const result = await queryClinicalConcept(patientId, ehrStoreUrl, c);
+        allObservatoins.concat(result);
+    })
+    return allObservatoins;
 
 }
 async function queryClinicalConcept(patientId: string, ehrStoreUrl: string, aql: ClinicalConcept): Promise<Observation[]> {
