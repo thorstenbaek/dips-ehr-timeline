@@ -1,41 +1,51 @@
 <script lang="ts">
-    import {fhirClient, patient} from "./smartOnFhirStore";        
-    import PatientHeader from "./Components/PatientHeader.svelte";
-    import DocumentReferences from "./Components/DocumentReferences.svelte";
-    import Timeline from "./Components/Timeline.svelte";
-    import Navigator from "./Components/Navigator.svelte";
-    import TimeSlider from "./Components/TimeSlider.svelte";                
+  import { fhirClient, patient } from "./smartOnFhirStore";
+
+  import PatientHeader from "./Components/PatientHeader.svelte";
+  import DocumentReferences from "./Components/DocumentReferences.svelte";
+  import Timeline from "./Components/Timeline.svelte";
+  import Navigator from "./Components/Navigator.svelte";
+  import TimeSlider from "./Components/TimeSlider.svelte";
+  import { NotificationDisplay, notifier } from "@beyonk/svelte-notifications";
+  import Notifier from "./Components/Notifier.svelte";
+
+  function someFunction() {
+    notifier.danger("Notifications work!", 1000);
+  }
 </script>
+
 {#if $fhirClient != null && $patient != null}
-    <!-- <PatientHeader patient={$patient}/>
+  <!-- <PatientHeader patient={$patient}/>
     <DocumentReferences client={$fhirClient} />
     <Observations client={$fhirClient} /> -->
-    <div class=home>
-        <Timeline/>                
-        <div class=panel>
-            <TimeSlider/>
-            <Navigator/> 
-        </div>
+  <div class="home">
+    <Timeline />
+    <div class="panel">
+      <TimeSlider />
+      <Navigator />
+      <NotificationDisplay />
+      <Notifier />
     </div>
+  </div>
 {:else}
-    Loading patient...
+  Loading patient...
 {/if}
 
 <style>
-    .home {
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: 0;        
-        background: #eeeeee;
-    }
+  .home {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: #eeeeee;
+  }
 
-    .panel {
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        height: 150px;
-    }
+  .panel {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 150px;
+  }
 </style>
