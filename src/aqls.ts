@@ -29,6 +29,17 @@ a_a/data[at0002]/events[at0003]/data[at0001]/items[at0004]/value/units
 FROM COMPOSITION a CONTAINS OBSERVATION a_a[openEHR-EHR-OBSERVATION.pulse.v1]
 ORDER BY a_a/data[at0002]/events[at0003]/time DESC`;
 
+const AQL_MEDICATIONS = `SELECT
+a/time,
+a/description[at0017]/items[openEHR-EHR-CLUSTER.dosage.v1]/items[at0144]/value/magnitude,
+a/description[at0017]/items[openEHR-EHR-CLUSTER.dosage.v1]/items[at0144]/value/units,
+a/description[at0017]/items[at0020]/value/value
+
+FROM
+COMPOSITION c
+CONTAINS ACTION a[openEHR-EHR-ACTION.medication.v1] CONTAINS CLUSTER cl[openEHR-EHR-CLUSTER.dosage.v1]
+ORDER BY
+a/time DESC`;
 
 
 export interface ClinicalConcept {
@@ -56,5 +67,11 @@ export const PULSE: ClinicalConcept = {
     name: "Puls",
     code: "8499008",
     aql: AQL_PULSE
+}
+
+export const MEDICATION: ClinicalConcept = {
+    name: "Medikamenter",
+    code: "123456",
+    aql: AQL_MEDICATIONS
 }
 

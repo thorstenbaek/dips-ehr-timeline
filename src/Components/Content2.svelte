@@ -59,7 +59,10 @@
                 <ContentLine title="Respirasjon" color="#bce3b0" {timeRuler} {observations} filter="86290005" icon="🎺"/>                        
                 <ContentLine title="Temperature" color="#1c545c" {timeRuler} {observations} filter="703421000" icon="🌡"/>       
                 <ContentLine title="Puls" color="#b4dee5" {timeRuler} {observations} filter="8499008" icon="❤"/>                        
-                <ContentLine title="Systolic Blood Pressure" color="#df6f35" {timeRuler} {observations} filter="271649006" icon="❤"/>        
+                <ContentLine title="Systolic Blood Pressure" color="#df6f35" {timeRuler} {observations} filter="271649006" icon="❤"/>                        
+            </Accordion>
+            <Accordion title="OpenEHR Medikamenter">        
+                <ContentLine title="Medikamenter" color="#579c8e" {timeRuler} {observations} filter="123456" icon="💊"/>        
             </Accordion>
         {:catch error}
             {error}

@@ -18,7 +18,7 @@
 <div class="line" bind:clientWidth={width} bind:clientHeight={height}>    
     {title}
     {#each observations.filter(o => o.code == filter) as observation}          
-        <span title="{observation.time.toLocaleDateString("nb-no")} {observation.time.toLocaleTimeString("nb-no")} {title} {observation.value} {observation.unit}">
+        <span title="{observation.time.toLocaleDateString("nb-no")} {observation.time.toLocaleTimeString("nb-no")} {observation.text} {observation.value} {observation.unit}">
             <span class="observation" 
                 style={`left:${timeRuler.getX(observation.time.getTime(), width, true) - 20}px;top:5px;color:${color};`}>
                 {icon}

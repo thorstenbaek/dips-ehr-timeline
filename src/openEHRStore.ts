@@ -1,4 +1,4 @@
-import {ClinicalConcept, SYSTOLIC, RESPIRASJON, PULSE, TEMP} from './aqls';
+import {ClinicalConcept, SYSTOLIC, RESPIRASJON, PULSE, TEMP, MEDICATION} from './aqls';
 
 import Observation from "./Utils/Observation";
 
@@ -21,7 +21,8 @@ export async function queryObservations(patientId: string, ehrStoreUrl: string):
         SYSTOLIC,
         RESPIRASJON,
         PULSE,
-        TEMP
+        TEMP,
+        MEDICATION
     ]
     var allObservatoins: Observation[] = [];
     concepts.forEach(async c => {
@@ -67,7 +68,9 @@ export async function queryClinicalConcept(patientId: string, ehrStoreUrl: strin
             const t = row[0].value;
             const v = row[1];
             const u = row[2];
-            const o = new Observation("theid", aql.code, aql.name, new Date(t), v, u);
+
+            var text = row.length > 3 ? row[3] : aql.name;
+            const o = new Observation("theid", aql.code, text, new Date(t), v, u);
             observations.push(o);
         })
     }

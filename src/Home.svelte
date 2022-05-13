@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { fhirClient, patient } from "./smartOnFhirStore";
+  import { fhirClient, patient, status } from "./smartOnFhirStore";
 
   import PatientHeader from "./Components/PatientHeader.svelte";
   import DocumentReferences from "./Components/DocumentReferences.svelte";
@@ -15,7 +15,7 @@
   }
 </script>
 
-{#if $fhirClient != null && $patient != null}
+{#if $fhirClient != null && $patient != null}  
   <div class="home">
     <Timeline />
     <div class="panel">
@@ -29,6 +29,9 @@
 {:else}
   Loading patient...
 {/if}
+<div>
+  {$status}
+</div>
 
 <style>
   .home {

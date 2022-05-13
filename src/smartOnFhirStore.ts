@@ -3,30 +3,38 @@ import {oauth2 as SMART} from 'fhirclient';
 import type Client from "fhirclient/lib/Client";
 
 export const context = writable(null);
+export const status = writable(null);
 
 export const fhirClient: Readable<Client> = derived(
     context,
     ($context, set) => {
         if ($context != null && $context.client != null)
         {
-            set($context.client);            
+            set($context.client);                        
         }
     }
 )
 
 export const patient = derived(
-    context,
+    context,        
     ($context, set) => {
-        if ($context != null && $context.client != null)
-        {
-            $context.client.patient.read().then(p => set(p));            
+        if ($context != null && $context.client != null && $context.client.patient != null)        
+        {   
+            status.set($context.client.state);
+
+            try {
+                $context.client.patient.read().then(p => set(p));       
+            }
+            catch(e) {
+                status.set(e);
+            }                        
         }
     }
 );
 
 SMART.ready()
     .then(client => {
-        console.log(client);
+        console.log(client);                
         var newContext = {
             client: client,
             error: null
@@ -38,6 +46,6 @@ SMART.ready()
         var newContext = {
             client: null,
             error: error
-        };        
+        };                
         context.set(newContext)
     });
